@@ -1,0 +1,25 @@
+[
+{
+  "newOrderRequest":
+  {
+    "userID": "USER_0001",
+    "orderID": "aowiefasmnie",
+    "orderType": "limit",
+    "sellingCurrency": "BTC",
+    "sellingQty": 1,
+    "buyingCurrency": "USD",
+    "buyingQty": 3,
+    "userData": ""
+  }
+},
+
+
+{ 
+
+  "orderStatusRequest": {
+       "userID": "USER_0001",
+        "orderID": "aowiefasmnie"
+    }
+}
+
+]
