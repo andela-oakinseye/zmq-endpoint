@@ -1,0 +1,23 @@
+{
+  "name": "zmq-endpoint",
+  "version": "1.0.0",
+  "description": "ZMQ enpoints",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andela-oakinseye/zmq-endpoint.git"
+  },
+  "keywords": [],
+  "author": "Olawale Akinseye <brainyfarm@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andela-oakinseye/zmq-endpoint/issues"
+  },
+  "homepage": "https://github.com/andela-oakinseye/zmq-endpoint#readme",
+  "dependencies": {
+    "zeromq": "^4.6.0"
+  }
+}
