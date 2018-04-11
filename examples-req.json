@@ -1,25 +1,49 @@
-[
-{
-  "newOrderRequest":
-  {
-    "userID": "USER_0001",
-    "orderID": "aowiefasmnie",
-    "orderType": "limit",
-    "sellingCurrency": "BTC",
-    "sellingQty": 1,
-    "buyingCurrency": "USD",
-    "buyingQty": 3,
-    "userData": ""
-  }
-},
-
-
-{ 
-
-  "orderStatusRequest": {
-       "userID": "USER_0001",
-        "orderID": "aowiefasmnie"
+[{
+    "newOrderRequest": {
+      "userID": "USER_0001",
+      "orderID": "aowiefasmnie",
+      "orderType": "limit",
+      "sellingCurrency": "BTC",
+      "sellingQty": 1,
+      "buyingCurrency": "USD",
+      "buyingQty": 3,
+      "userData": ""
     }
-}
+  },
 
+  {
+    "orderStatusRequest": {
+      "userID": "USER_0001",
+      "orderID": "aowiefasmnie"
+    }
+  },
+
+  {
+    "orderCancelRequest": {
+      "userID": "USER_0001",
+      "orderID": "aowiefasmniscdce"
+    }
+  },
+
+  {
+    "activeOrdersRequest": {
+      "userID": "USER_0001"
+    }
+  },
+
+  {
+    "syncRequest": {
+      "from": 67
+    }
+  },
+
+  {
+    "barRequest": {
+      "buyingCurrency": "USD",
+      "sellingCurrency": "BTC",
+      "resolution": 60,
+      "from": 60,
+      "to": 66
+    }
+  }
 ]
