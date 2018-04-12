@@ -55,6 +55,7 @@ app.get('/',(req, res) => {
 app.post('/', (req, res) => {
     const port = Number(req.body.port);
     const message = JSON.parse(req.body.message);
+    console.log(JSON.stringify(message, null, 1));
     const serialedData = capnp.serialize(schema.APIMessage, message)
     publish(port, serialedData);
     return res.send('Message Published');
