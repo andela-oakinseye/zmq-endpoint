@@ -1,0 +1,110 @@
+// test.proto
+package test;
+syntax = "proto3";
+ 
+message APIMessage {
+		message SyncRequest {
+            uint64 from = 1;
+        }
+		message NewOrderRequest {
+			string userID = 1;
+			string orderID = 2;
+			string orderType = 3;
+			string sellingCurrency = 4;
+			uint64 sellingQty = 5;
+			string buyingCurrency = 6;
+			uint64 buyingQty = 7;
+			string userData = 8;
+		}
+		message OrderStatusRequest {
+			string userID = 1;
+			string orderID = 2;
+		}
+		message ActiveOrdersRequest {
+			string userID = 1;
+		}
+		message OrderCancelRequest {
+			string userID = 1;
+			string orderID = 2;
+		}
+		message SyncStatus {
+            uint64 nextSeqNumber = 1;
+        }
+		message OrderStatus {
+			uint64 seqNumber = 1;
+			string userID = 2;
+			string orderID = 3;
+			uint64 creationTime = 4;
+			uint64 completionTime = 5;
+			string orderType = 6;
+			string sellingCurrency = 7;
+			uint64 sellingQty = 8;
+			uint64 soldQty = 9;
+			string buyingCurrency = 10;
+			uint64 buyingQty = 11;
+			uint64 boughtQty = 12;
+			string userData = 13;
+		}
+		message Exchange {
+			message ExchangeUserData {
+				string userID = 1;
+				string orderID = 2;
+				string currency = 3;
+				uint64 qty = 4;
+			}
+			uint64 seqNumber = 1;
+            uint64 executionTime = 2;
+            ExchangeUserData exchangeUserData1 = 3;
+            ExchangeUserData exchangeUserData2 = 4;
+		}
+        message InfoMessage {
+			string userID = 1;
+			string orderID = 2;
+            string text = 3;
+        }
+		message Book {
+			message PriceLevel {
+				uint64 price = 1;
+				uint64 qty = 2;
+			}
+			uint64 seqNumber = 1;
+			string baseCurrency = 2;
+			string quoteCurrency = 3;
+			repeated PriceLevel bids = 4;
+			repeated PriceLevel asks = 5;
+		}
+		message Bar {
+			string buyingCurrency = 1;
+			string sellingCurrency = 2;
+			uint64 resolution = 3;
+			uint64 time = 4;
+			uint64 maxPrice = 5;
+			uint64 minPrice = 6;
+			uint64 openPrice = 7;
+			uint64 closePrice = 8;
+			uint64 volume = 9;
+		}
+		message BarRequest {
+			string buyingCurrency = 1;
+			string sellingCurrency = 2;
+			uint64 resolution = 3;
+			uint64 from = 4;
+			uint64 to = 5;
+		}
+		
+		oneof allTypes {
+			SyncRequest syncRequest = 1;
+			NewOrderRequest newOrderRequest = 2;
+			OrderStatusRequest orderStatusRequest = 3;
+			ActiveOrdersRequest activeOrdersRequest = 4;
+			OrderCancelRequest orderCancelRequest = 5;
+			SyncStatus syncStatus = 6;
+			OrderStatus orderStatus = 7;
+			Exchange exchange = 8;
+			InfoMessage infoMessage = 9;
+			Book book = 10;
+			Bar bar = 11;
+			BarRequest barRequest = 12;
+		}
+}
+
