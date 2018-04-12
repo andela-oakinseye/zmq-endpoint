@@ -41,9 +41,9 @@
     "barRequest": {
       "buyingCurrency": "USD",
       "sellingCurrency": "BTC",
-      "resolution": 60,
-      "from": 60,
-      "to": 66
+      "resolution": 1,
+      "from": 1523143400,
+      "to": 1523643400
     }
   }
 ]
