@@ -1,0 +1,50 @@
+[
+    {
+        "orderStatus":{
+            "seqNumber":"65",
+            "userID":"USER_0001",
+            "orderID":"aowiefasmniscdce",
+            "creationTime":"1523468506",
+            "completionTime":"0",
+            "orderType":"limit",
+            "sellingCurrency":"BTC",
+            "soldQty":"0",
+            "origSellingQty":"1",
+            "buyingCurrency":"USD",
+            "boughtQty":"0",
+            "origBuyingQty":"3",
+            "userData":""
+        }
+    },
+
+    {
+        "syncStatus":{
+            "nextSeqNumber":"66"
+        }
+    },
+
+    {
+        "book":{
+            "baseCurrency":"BTC",
+            "quoteCurrency":"USD",
+            "bids":[],
+            "asks":[
+                {
+                    "price":3,
+                    "qty":"26"
+                },
+                {
+                    "price":7000,
+                    "qty":"59990000026"
+                },
+                {
+                    "price":10000,
+                    "qty":"69990000026"
+                }
+            ],
+            "seqNumber":"64"
+        }
+    } 
+
+
+]
