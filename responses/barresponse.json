@@ -1,0 +1,44 @@
+{
+  "barResponse": {
+    "code": "OK",
+    "tag": "blahi",
+    "text": "OK",
+    "bars": [{
+      "buyingCurrency": "BTC",
+      "sellingCurrency": "USD",
+      "time": "25480933",
+      "maxPrice": 1.5915677198631515,
+      "minPrice": 1.5915677198631515,
+      "openPrice": 1.5915677198631515,
+      "closePrice": 1.5915677198631515,
+      "volume": "49690"
+    }, {
+      "buyingCurrency": "BTC",
+      "sellingCurrency": "USD",
+      "time": "25523577",
+      "maxPrice": 1,
+      "minPrice": 1,
+      "openPrice": 1,
+      "closePrice": 1,
+      "volume": "100"
+    }, {
+      "buyingCurrency": "BTC",
+      "sellingCurrency": "USD",
+      "time": "25523578",
+      "maxPrice": 1,
+      "minPrice": 1,
+      "openPrice": 1,
+      "closePrice": 1,
+      "volume": "100"
+    }, {
+      "buyingCurrency": "BTC",
+      "sellingCurrency": "USD",
+      "time": "25523579",
+      "maxPrice": 1.0775927197802198,
+      "minPrice": 1.0151799855045232,
+      "openPrice": 1.0775927197802198,
+      "closePrice": 1.0151799855045232,
+      "volume": "132746"
+    }]
+  }
+}

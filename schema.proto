@@ -1,0 +1,211 @@
+syntax = "proto3";
+package scheme;
+ 
+message APIMessage {
+	enum ResponseCode {
+		UNKNOWN = 0;
+		OK = 1;
+		COMMON_ERROR = 2;
+		VALIDATION_ERROR = 3;
+		UNSUPPORTED_REQUEST_TYPE = 4;
+	}
+
+	message SyncRequest {
+		int64 from = 1;
+		oneof to {
+			int64 toValue = 2;
+		}
+		string tag = 3;
+	}
+	message SyncResponse {
+		ResponseCode code = 1;
+		string tag = 2;
+		string text = 3;
+		HistoryPack history = 4;
+	}
+
+	message HistoryPack {
+		repeated HistoryElement element = 1;
+	}
+
+	message HistoryElement {
+		oneof MessageType {
+			Exchange exchange = 1;
+			OrderStatus orderStatus = 2;
+		}
+	}
+
+	message NewOrderRequest {
+		string userID = 1;
+		string orderID = 2;
+		string orderType = 3;
+		string sellingCurrency = 4;
+		int64 sellingQty = 5;
+		string buyingCurrency = 6;
+		int64 buyingQty = 7;
+		string userData = 8;
+		string tag = 9;
+	}
+	message NewOrderResponse {
+		ResponseCode code = 1;
+		string tag = 2;
+		string text = 3;
+	}
+
+	message OrderStatusRequest {
+		string userID = 1;
+		string orderID = 2;
+		string tag = 3;
+	}
+	message OrderStatusResponse {
+		ResponseCode code = 1;
+		string tag = 2;
+		string text = 3;
+	}
+
+	message ActiveOrdersRequest {
+		string userID = 1;
+		string tag = 2;
+	}
+	message ActiveOrdersResponse {
+		ResponseCode code = 1;
+		string tag = 2;
+		string text = 3;
+		OrdersPack activeOrders = 4;
+	}
+
+	message OrderCancelRequest {
+		string userID = 1;
+		string orderID = 2;
+		string tag = 3;
+	}
+	message OrderCancelResponse {
+		ResponseCode code = 1;
+		string tag = 2;
+		string text = 3;
+	}
+
+	message OrderStatus {
+		int64 seqNumber = 1;
+		string userID = 2;
+		string orderID = 3;
+		int64 creationTime = 4;
+		int64 completionTime = 5;
+		string orderType = 6;
+		string sellingCurrency = 7;
+		int64 sellingQty = 8;
+		int64 soldQty = 9;
+		string buyingCurrency = 10;
+		int64 buyingQty = 11;
+		int64 boughtQty = 12;
+		string userData = 13;
+	}
+	message OrdersPack {
+		repeated OrderStatus orders = 1;
+	}
+	message Exchange {
+		message ExchangeUserData {
+			string userID = 1;
+			string orderID = 2;
+			string currency = 3;
+			int64 qty = 4;
+		}
+		int64 seqNumber = 1;
+		int64 executionTime = 2;
+		ExchangeUserData exchangeUserData1 = 3;
+		ExchangeUserData exchangeUserData2 = 4;
+	}
+	message ExchangesPack {
+		repeated Exchange exchanges = 1;
+	}
+	message InfoMessageResponse {
+		ResponseCode code = 1;
+		string text = 2;
+	}
+	
+	message BookResponse{
+		message Book {
+			message PriceLevel {
+				double price = 1;
+				int64 qty = 2;
+			}
+			int64 seqNumber = 1;
+			string baseCurrency = 2;
+			string quoteCurrency = 3;
+			repeated PriceLevel bids = 4;
+			repeated PriceLevel asks = 5;
+		}
+
+		repeated Book book = 1;
+	}
+
+	enum Resolution {
+		M1 = 0;
+		M5 = 1;
+		M15 = 2; 
+		H1 = 3; 
+		H4 = 4;
+		D1 = 5;
+	}
+
+	message BarRequest {
+		string buyingCurrency = 1;
+		string sellingCurrency = 2;
+		Resolution resolution = 3;
+		int64 from = 4;       // In unix minutes
+		int64 to = 5;         // In unix minutes
+		string tag = 6;
+	}
+	message Bar {
+		string buyingCurrency = 1;
+		string sellingCurrency = 2;
+		Resolution resolution = 3;
+		int64 time = 4;
+		double maxPrice = 5;
+		double minPrice = 6;
+		double openPrice = 7;
+		double closePrice = 8;
+		int64 volume = 9;
+		bool final = 10;
+	}
+	message BarResponse {
+		ResponseCode code = 1;
+		string tag = 2;
+		string text = 3;
+		repeated Bar bars = 4;
+	}
+
+	message ExchangesRequest {
+		string userID = 1;
+		string orderID = 2;
+		string tag = 3;
+	}
+	message ExchangesResponse {
+		ResponseCode code = 1;
+		string tag = 2;
+		string text = 3;
+		ExchangesPack exchanges = 4;
+	}
+	
+	oneof MessageType {
+		SyncRequest syncRequest = 1;
+		SyncResponse syncResponse = 2;
+		NewOrderRequest newOrderRequest = 3;
+		NewOrderResponse newOrderResponse = 4;
+		OrderStatusRequest orderStatusRequest = 5;
+		OrderStatusResponse orderStatusResponse = 6;
+		ActiveOrdersRequest activeOrdersRequest = 7;
+		ActiveOrdersResponse activeOrdersResponse = 8;
+		OrderCancelRequest orderCancelRequest = 9;
+		OrderCancelResponse orderCancelResponse = 10;
+		OrderStatus orderStatus = 11;
+		Exchange exchange = 12;
+		InfoMessageResponse infoMessageResponse = 13;
+		BookResponse bookresponse = 14;
+		BarRequest barRequest = 15;
+		BarResponse barResponse = 16;
+		Bar bar = 17;
+		ExchangesRequest exchangesRequest = 18;
+		ExchangesResponse exchangesResponse = 19;
+	}
+}

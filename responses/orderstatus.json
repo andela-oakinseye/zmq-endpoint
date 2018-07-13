@@ -1,0 +1,16 @@
+{
+  "orderStatus": {
+    "seqNumber": "32636",
+    "userID": "testuser",
+    "orderID": "#253571498",
+    "creationTime": "1528692803",
+    "orderType": "limit",
+    "sellingCurrency": "USD",
+    "sellingQty": "49520",
+    "soldQty": "3",
+    "buyingCurrency": "BTC",
+    "buyingQty": "55643",
+    "boughtQty": "300",
+    "userData": "Random order #13625"
+  }
+}

@@ -1,16 +1,16 @@
 import zeromq from 'zeromq';
 
-const subscribe = (port, cb) => {  
-  const subber = zeromq.socket('sub');
+const subscribe = (port, cb) => {
+  const ZMQsub = zeromq.socket('sub');
   const endpoint = `tcp://35.176.255.14:${port}`
-  subber.connect(endpoint);
-  subber.monitor();
-  subber.on('connect', () => {
-    console.log(`Connection to ${port} established`)
-     subber.subscribe('');
+  ZMQsub.connect(endpoint);
+  ZMQsub.monitor();
+  ZMQsub.on('connect', () => {
+    console.log(`Sub Connection to ${port} established`)
+    ZMQsub.subscribe('');
   });
- 
-  subber.on('message', (message) => {
+
+  ZMQsub.on('message', (message) => {
     cb(message);
   });
 };

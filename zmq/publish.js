@@ -1,20 +1,20 @@
 import zeromq from 'zeromq';
 
 const publish = (port, message) => {
-  const pubber = zeromq.socket('pub');
+  const ZMQdealer = zeromq.socket('dealer');
   const endpoint = `tcp://35.176.255.14:${port}`;
-  pubber.connect(endpoint);  
-  pubber.monitor();
-  pubber.on('connect', () => {
+  ZMQdealer.connect(endpoint);
+  ZMQdealer.monitor();
+  ZMQdealer.on('connect', () => {
     console.log('Connection established');
     console.log('Message Published');
-    pubber.send(message);
-    pubber.close();
+    ZMQdealer.send(message);
+    ZMQdealer.close();
   });
-  pubber.on('connect_delay', () => {
+  ZMQdealer.on('connect_delay', () => {
     console.log('connect_delay');
   });
-  pubber.on('connect_retry', () => {
+  ZMQdealer.on('connect_retry', () => {
     console.log('connect_retry');
   });
 
