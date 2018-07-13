@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import protobuf from 'protobufjs';
-import zeromq from "zeromq";
 
 import fs from 'fs';
 import path from 'path';
@@ -11,9 +10,6 @@ import { publish, subscribe } from './zmq';
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const ZMQsub = zeromq.socket('sub');
-const ZMQdealer = zeromq.socket('dealer');
 
 // const subPorts = {
 //   newOrderSubber: 5500,
@@ -54,7 +50,7 @@ const protobufParser = (pattern, message) => new Promise((resolve, reject) => {
 
 function writeOutput(messagePORT, message) {
   protobufParser(DECODE, message).then((res) => {
-    return fs.appendFile(`outputs/port-${messagePORT}.txt`,  `${JSON.stringify(res)} \n`, (err) => {
+    return fs.appendFile(`outputs/port-${messagePORT}.txt`, `${JSON.stringify(res)} \n`, (err) => {
       console.log(">>>>>>>>>>>>", messagePORT);
       if (err) throw err;
     });
@@ -63,7 +59,7 @@ function writeOutput(messagePORT, message) {
 
 // ZMQ subscription object instances for each sub ports
 Object.values(subPorts).forEach((port) => {
-  subscribe(ZMQsub, port, message => {
+  subscribe(port, message => {
     switch (port) {
       case 5559:
         return writeOutput(5559, message);
@@ -91,7 +87,7 @@ app.post('/', (req, res) => {
   // publish(port, serialedData);
   // return res.send('Message Published');
   protobufParser(ENCODE, message).then((response) => {
-    publish(ZMQdealer, port, response);
+    publish(port, response);
     return res.send('Message Published');
   }).catch((err) => console.log(err));
 })
