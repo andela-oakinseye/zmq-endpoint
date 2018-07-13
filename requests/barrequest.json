@@ -1,0 +1,10 @@
+{
+  "barRequest": {
+    "buyingCurrency": "BTC",
+    "sellingCurrency": "USD",
+    "resolution": 0,
+    "from": 25480740,
+    "to": 25525010,
+    "tag": "blahi"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "newOrderRequest": {
+    "userID": "ayeo",
+    "orderID": "ORDER_034343i",
+    "orderType": "limit",
+    "sellingCurrency": "USD",
+    "sellingQty": 1200,
+    "buyingCurrency": "BTC",
+    "buyingQty": 1,
+    "userData": "",
+    "tag": "juju"
+  }
+}

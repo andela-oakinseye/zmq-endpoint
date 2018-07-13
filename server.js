@@ -50,7 +50,8 @@ const protobufParser = (pattern, message) => new Promise((resolve, reject) => {
 
 function writeOutput(messagePORT, message) {
   protobufParser(DECODE, message).then((res) => {
-    return fs.appendFile(`outputs/port-${messagePORT}.txt`, `${JSON.stringify(res)} \n`, (err) => {
+    return fs.appendFile(`outputs/port-${messagePORT}.txt`, `${JSON.stringify(res)} \n \n`, (err) => {
+      
       console.log(">>>>>>>>>>>>", messagePORT);
       if (err) throw err;
     });

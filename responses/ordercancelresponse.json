@@ -1,0 +1,7 @@
+{
+  "orderCancelResponse": {
+    "code": 1,
+    "tag": "tutu",
+    "text": "OK"
+  }
+}

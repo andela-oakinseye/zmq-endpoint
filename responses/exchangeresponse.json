@@ -1,0 +1,18 @@
+{
+  "exchange": {
+    "seqNumber": "32634",
+    "executionTime": "1531508581",
+    "exchangeUserData1": {
+      "userID": "ayeo",
+      "orderID": "#ORDErR_034343wrei",
+      "currency": "USD",
+      "qty": "1"
+    },
+    "exchangeUserData2": {
+      "userID": "testuser",
+      "orderID": "#253571498",
+      "currency": "BTC",
+      "qty": "100"
+    }
+  }
+}

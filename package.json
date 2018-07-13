@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node server.js",
+    "start": "babel-watch server.js",
     "bench": "babel-node test.js"
   },
   "repository": {
@@ -28,5 +28,8 @@
     "express": "^4.16.3",
     "protobufjs": "^6.8.6",
     "zeromq": "^4.6.0"
+  },
+  "devDependencies": {
+    "babel-watch": "^2.0.7"
   }
 }
