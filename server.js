@@ -2,11 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import protobuf from 'protobufjs';
 import zeromq from 'zeromq';
-import { log } from 'util';
-
-
 import fs from 'fs';
 import path from 'path';
+import { log } from 'util';
 
 import { publish, subscribe } from './zmq';
 
@@ -33,10 +31,9 @@ const ENCODE = 'ENCODE';
 const DECODE = 'DECODE';
 let APIMessage;
 
-protobuf.load("schema.proto")
-  .then((root) => {
-    APIMessage = root.lookupType('scheme.APIMessage');
-  });
+protobuf.load('schema.proto').then((root) => {
+  APIMessage = root.lookupType('scheme.APIMessage');
+});
 
 const protobufParser = (pattern, message) => new Promise((resolve, reject) => {
   if (pattern === DECODE) {
@@ -52,12 +49,11 @@ const protobufParser = (pattern, message) => new Promise((resolve, reject) => {
   reject(Error('Unable to endode or decode'));
 });
 
-function writeOutput(messagePORT, message) {
-    return fs.appendFile(`outputs/${messagePORT}.txt`, `${JSON.stringify(message)} \n \n`, (err) => {
-  
-        console.log(">>>>>>>>>>>>", messagePORT);
-        if (err) throw err;
-      });
+function writeOutput(messageRequest, message) {
+  return fs.appendFile(`outputs/${messageRequest}.txt`, `${JSON.stringify(message)} \n \n`, (err) => {
+    if (err) throw err;
+    console.log('>>>>>', messageRequest);
+  });
 }
 
 // ZMQ (core) event handlers
@@ -68,7 +64,6 @@ const subInit = () => Promise.all([
         writeOutput('ORDER_STATUS', message);
       } else if (message.exchange) {
         writeOutput('EXCHANGE', message);
-
       }
     }).catch(err => log(err));
   }),
@@ -76,23 +71,11 @@ const subInit = () => Promise.all([
   subscribe(ZMQbarSUB, subPorts.barSubber, (ZMQmessage) => {
     protobufParser(DECODE, ZMQmessage).then((message) => {
       writeOutput('BAR_RESPONSE', message);
-
     }).catch(err => log(err));
-
   }),
 
   subscribe(ZMQbookSUB, subPorts.bookSubber, (ZMQmessage) => {
-    // // log('Something on ZMQbookSUB');
-    // protobufParser(DECODE, ZMQmessage).then((message) => {
-    //   // log('Message parsed by protobuf:: ', message);
-    //   // if (message.bookresponse) {
-    //   //   writeOutput('BOOK_RESPONSE', message);
-    //   // }
-    //   // Not implemented on TPT side ATM
-    //   //  else if (message.bookUpdate) {
-    //   //   receiveBookUpdate(message.bookUpdate);
-    //   // }
-    // }).catch(err => log(err));
+    log('book', subPorts.bookSubber);
   }),
 ]);
 
@@ -110,6 +93,7 @@ const dealerInit = () => Promise.all([
       writeOutput('ORDER_DEALER', message);
     }).catch(err => log(err));
   }),
+
   publish(ZMQdbDEAL, dealerPorts.dbDealer, (...ZMQmessage) => {
     ZMQmessage = ZMQmessage[1];
     protobufParser(DECODE, ZMQmessage).then((message) => {
@@ -122,6 +106,7 @@ const dealerInit = () => Promise.all([
       }
     }).catch(err => log(err));
   }),
+
   publish(ZMQbarDEAL, dealerPorts.barDealer, (...ZMQmessage) => {
     ZMQmessage = ZMQmessage[1];
     protobufParser(DECODE, ZMQmessage).then((message) => {
@@ -129,6 +114,7 @@ const dealerInit = () => Promise.all([
       writeOutput('BAR_DEALER', message);
     }).catch(err => log(err));
   })
+
 ]);
 
 
@@ -137,16 +123,16 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
+  let ZMQsocket;
   const port = Number(req.body.port);
   const message = JSON.parse(req.body.message);
   console.log(JSON.stringify(message, null, 1));
   console.log('port:', port);
 
-  let ZMQsocket;
   if (message.newOrderRequest || message.orderCancelRequest || message.orderStatusRequest) {
     ZMQsocket = ZMQordersDEAL;
   } else if (message.activeOrdersRequest || message.syncRequest || message.exchangesRequest) {
-    ///Avoids huge cascades of syncRequest messages
+    // Avoids huge cascades of syncRequest messages
     if (message.syncRequest && ZMQdbDEAL.busySyncing)
       return;
     else {
@@ -160,7 +146,7 @@ app.post('/', (req, res) => {
 
   log(`Sending to core: ${JSON.stringify(message)}`);
   protobufParser(ENCODE, message).then((buffer) => {
-    ZMQsocket.send(["", buffer]);
+    ZMQsocket.send(['', buffer]);
     res.send('Message Published');
   }).catch(err => log(err));
 });
