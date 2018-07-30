@@ -103,7 +103,10 @@ const dealerInit = () => Promise.all([
       } else if (message.activeOrdersResponse) {
       log(message)
       writeOutput('ACTIVE_ORDERS_RESPONSE', message);
-      }
+      } else if (message.exchangesResponse ) {
+        log(message)
+        writeOutput('EXCHANGES_RESPONSE', message);
+        }
     }).catch(err => log(err));
   }),
 
