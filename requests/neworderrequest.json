@@ -1,12 +1,12 @@
 {
   "newOrderRequest": {
     "userID": "ayeo",
-    "orderID": "ORDER_034343i",
+    "orderID": "omo_oro-1",
     "orderType": "limit",
     "sellingCurrency": "USD",
-    "sellingQty": 1200,
+    "sellingQty": 1e14,
     "buyingCurrency": "BTC",
-    "buyingQty": 1,
+    "buyingQty": 1e16,
     "userData": "",
     "tag": "juju"
   }

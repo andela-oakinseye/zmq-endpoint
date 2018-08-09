@@ -76,6 +76,9 @@ const subInit = () => Promise.all([
 
   subscribe(ZMQbookSUB, subPorts.bookSubber, (ZMQmessage) => {
     log('book', subPorts.bookSubber);
+    protobufParser(DECODE, ZMQmessage).then((message) => {
+      writeOutput('BOOK_RESPONSE', message);
+    })
   }),
 ]);
 
@@ -98,7 +101,7 @@ const dealerInit = () => Promise.all([
     ZMQmessage = ZMQmessage[1];
     protobufParser(DECODE, ZMQmessage).then((message) => {
       if (message.syncResponse) {
-      log(message)
+      log(JSON.stringify(message))
       writeOutput('SYNC_RESPONSE', message);
       } else if (message.activeOrdersResponse) {
       log(message)
